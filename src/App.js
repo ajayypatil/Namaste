@@ -1,10 +1,9 @@
-import './App.css';
+
+import Body from './components/Body';
 
 function App() {
   return (
-    <div className="relative flex items-center font-extrabold">
-      Namaste Everyone
-    </div>
+    <Body/>
   );
 }
 
