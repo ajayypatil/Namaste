@@ -5,7 +5,6 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 import {updateProfile } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
@@ -14,7 +13,6 @@ const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [erroMessage, setErrorMessage] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
@@ -49,7 +47,7 @@ const Login = () => {
             // Profile updated!
             const { uid, email, displayName } = auth.currentUser;
                dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
-            navigate("/browse");
+
           }).catch((error) => {
             // An error occurred
             setErrorMessage(error.message);
@@ -70,7 +68,6 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
