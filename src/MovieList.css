@@ -1,3 +1,10 @@
 #scrollBar::-webkit-scrollbar {
         display: none;
       }
+
+      #scrollBar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+      }
+
+   
