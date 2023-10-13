@@ -3,7 +3,7 @@ import GptSearchBar from "./GptSearchBar";
 import GptMovieSuggestions from "./GptMovieSuggestions";
 import { BG_URL } from "../utils/constants";
 import { useSelector } from "react-redux";
-import FlipLoader from "./FlipLoader";
+import Loader from "./Loader";
 
 const GptSearch = () => {
   const isLoading = useSelector((store)=> store.gpt.isLoading)
@@ -18,7 +18,7 @@ const GptSearch = () => {
       </div>
       <div className="">
         <GptSearchBar />
-        {isLoading? <FlipLoader/> : <GptMovieSuggestions />}
+        {isLoading? <Loader/> : <GptMovieSuggestions />}
       </div>
     </div>
   );
