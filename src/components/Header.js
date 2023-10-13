@@ -9,13 +9,13 @@ import { signOut } from "firebase/auth";
 import { LOGO, SUPPORTED_LANGUAGES, USER_ICON } from "../utils/constants";
 import { clearGptMovieResult, toggleGptSearchView } from "../utils/gptSlice";
 import { changeLanguage } from "../utils/configSlice";
-import { setIsDescription, toggleIsDescription } from "../utils/moviesSlice";
+import { setIsDescription} from "../utils/moviesSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
-  
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -48,7 +48,6 @@ const Header = () => {
     dispatch(toggleGptSearchView());
     dispatch(clearGptMovieResult());
     dispatch(setIsDescription());
-    
   };
 
   const handleLanguageChange = (e) => {
@@ -57,7 +56,7 @@ const Header = () => {
 
   return (
     <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row justify-between">
-      <img className="w-44" src={LOGO} alt="Netflix-Logo"></img>
+      <img className="w-44 mx-auto md:mx-0" src={LOGO} alt="Netflix-Logo"></img>
       {user && (
         <div className="flex p-2 justify-between">
           {showGptSearch && (
@@ -80,7 +79,11 @@ const Header = () => {
           >
             {showGptSearch ? "Home Page" : "GPT Search"}
           </button>
-          <img alt="usericon" src={USER_ICON} className="w-10 h-10"></img>
+          <img
+            alt="usericon"
+            src={USER_ICON}
+            className="hidden md:block w-10 h-10"
+          ></img>
 
           <button className="text-white pb-4 ml-2" onClick={handleSignOut}>
             Sign Out

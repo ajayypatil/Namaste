@@ -13,10 +13,14 @@ const MovieList = ({ title, movies }) => {
       <div id="scrollBar" className="flex overflow-x-scroll">
         <div className="flex ">
           {movies?.map((movie) => (
-            <Link key={movie?.id} to={"/browse/" + movie.title} onClick={()=>{
-               dispatch(toggleIsDescription())
-            }}> 
-            <MovieCard  posterPath={movie?.poster_path} />
+            <Link
+              key={movie?.id}
+              to={"/browse/" + movie.title}
+              onClick={() => {
+                dispatch(toggleIsDescription());
+              }}
+            >
+              <MovieCard posterPath={movie?.poster_path} />
             </Link>
           ))}
         </div>
