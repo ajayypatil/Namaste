@@ -9,12 +9,13 @@ import { signOut } from "firebase/auth";
 import { LOGO, SUPPORTED_LANGUAGES, USER_ICON } from "../utils/constants";
 import { clearGptMovieResult, toggleGptSearchView } from "../utils/gptSlice";
 import { changeLanguage } from "../utils/configSlice";
-import { setIsDescription} from "../utils/moviesSlice";
+import { setIsDescription, toggleIsDescription } from "../utils/moviesSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
+  const isDescription = useSelector((store) => store.movies.isDescription);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -56,7 +57,19 @@ const Header = () => {
 
   return (
     <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row justify-between">
-      <img className="w-44 mx-auto md:mx-0" src={LOGO} alt="Netflix-Logo"></img>
+      <img
+        className={`${
+          isDescription
+            ? "w-20 h-10 mx-auto md:mx-0 sm:w-44 sm:h-auto cursor-pointer"
+            : "w-44 mx-auto md:mx-0"
+        }`}
+        src={LOGO}
+        alt="Netflix-Logo"
+        onClick={() => {
+          navigate("/browse");
+          dispatch(toggleIsDescription());
+        }}
+      ></img>
       {user && (
         <div className="flex p-2 justify-between">
           {showGptSearch && (
@@ -74,7 +87,11 @@ const Header = () => {
             </select>
           )}
           <button
-            className="text-white py-2 px-4 mx-8 my-2 bg-purple-800 rounded-lg"
+            className={`${
+              isDescription
+                ? "text-white py-2 px-4 mx-8 my-2 bg-purple-800 rounded-lg hidden sm:block"
+                : "text-white py-2 px-4 mx-8 my-2 bg-purple-800 rounded-lg"
+            }`}
             onClick={handleGptSearchClick}
           >
             {showGptSearch ? "Home Page" : "GPT Search"}
@@ -85,7 +102,14 @@ const Header = () => {
             className="hidden md:block w-10 h-10"
           ></img>
 
-          <button className="text-white pb-4 ml-2" onClick={handleSignOut}>
+          <button
+            className={`${
+              isDescription
+                ? "text-white pb-4 ml-2 hidden sm:block"
+                : "text-white pb-4 ml-2"
+            }`}
+            onClick={handleSignOut}
+          >
             Sign Out
           </button>
         </div>
