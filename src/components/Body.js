@@ -2,6 +2,7 @@ import Login from "./Login";
 import Browse from "./Browse";
 import { RouterProvider, createBrowserRouter,} from "react-router-dom";
  import "../MovieList.css"
+import MovieDescription from "./MovieDescription";
 
 
 const Body = () => {
@@ -15,7 +16,14 @@ const Body = () => {
     {
       path: "/browse",
       element: <Browse />,
+      children: [
+        {
+          path: "/browse/:movieTitle",
+          element: <MovieDescription/>
+        }
+      ]
     },
+    
   ]);
 
   return (

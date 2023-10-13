@@ -7,14 +7,15 @@ import { addUser, removeUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { LOGO, SUPPORTED_LANGUAGES, USER_ICON } from "../utils/constants";
-import { toggleGptSearchView } from "../utils/gptSlice";
+import { clearGptMovieResult, toggleGptSearchView } from "../utils/gptSlice";
 import { changeLanguage } from "../utils/configSlice";
+import { setIsDescription, toggleIsDescription } from "../utils/moviesSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
-
+  
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -43,7 +44,11 @@ const Header = () => {
       });
   };
   const handleGptSearchClick = () => {
+    navigate("/browse");
     dispatch(toggleGptSearchView());
+    dispatch(clearGptMovieResult());
+    dispatch(setIsDescription());
+    
   };
 
   const handleLanguageChange = (e) => {
@@ -57,7 +62,7 @@ const Header = () => {
         <div className="flex p-2 justify-between">
           {showGptSearch && (
             <select
-              className="bg-gray-900 pl-2 m-2 relative -top-1 text-white"
+              className="bg-gray-900 pl-2 m-2 text-white"
               onChange={handleLanguageChange}
             >
               {SUPPORTED_LANGUAGES.map((lang) => {
@@ -70,10 +75,10 @@ const Header = () => {
             </select>
           )}
           <button
-            className="text-white py-2 px-4 mx-8 my-2 bg-purple-800 rounded-lg relative -inset-1"
+            className="text-white py-2 px-4 mx-8 my-2 bg-purple-800 rounded-lg"
             onClick={handleGptSearchClick}
           >
-            {showGptSearch ? "HomePage" : "GPT Search"}
+            {showGptSearch ? "Home Page" : "GPT Search"}
           </button>
           <img alt="usericon" src={USER_ICON} className="w-10 h-10"></img>
 

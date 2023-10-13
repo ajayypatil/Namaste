@@ -5,7 +5,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import {updateProfile } from "firebase/auth";
+import { updateProfile } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { BG_URL } from "../utils/constants";
@@ -18,7 +18,6 @@ const Login = () => {
   const email = useRef(null);
   const password = useRef(null);
   const dispatch = useDispatch();
- 
 
   const signInHandler = () => {
     setIsSignInForm(!isSignInForm);
@@ -43,24 +42,25 @@ const Login = () => {
         .then((userCredential) => {
           const user = userCredential.user;
           updateProfile(user, {
-            displayName: name.current.value
-          }).then(() => {
-            // Profile updated!
-            const { uid, email, displayName } = auth.currentUser;
-               dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
-
-          }).catch((error) => {
-            // An error occurred
-            setErrorMessage(error.message);
-          });
-         
+            displayName: name.current.value,
+          })
+            .then(() => {
+              // Profile updated!
+              const { uid, email, displayName } = auth.currentUser;
+              dispatch(
+                addUser({ uid: uid, email: email, displayName: displayName })
+              );
+            })
+            .catch((error) => {
+              // An error occurred
+              setErrorMessage(error.message);
+            });
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           // ..
         });
-        
     } else {
       signInWithEmailAndPassword(
         auth,
@@ -82,11 +82,7 @@ const Login = () => {
     <div className="relative">
       <Header />
 
-      <img
-        src={BG_URL}
-        alt="Logo-Background"
-        className="absolute"
-      />
+      <img src={BG_URL} alt="Logo-Background" className="absolute" />
 
       <form className="  absolute bg-black w-3/12 p-12 my-36 mx-auto left-0 right-0 text-white rounded-lg bg-opacity-80">
         <h1 className="text-3xl font-bold py-4">
