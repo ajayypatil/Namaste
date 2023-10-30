@@ -14,9 +14,11 @@ const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [erroMessage, setErrorMessage] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
+  const confirmPassword = useRef(null);
   const dispatch = useDispatch();
 
   const signInHandler = () => {
@@ -26,6 +28,9 @@ const Login = () => {
   const showPasswordHandler = () => {
     setShowPassword(!showPassword);
   };
+  const showConfirmPasswordHandler = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
 
   const handleButtonClick = (event) => {
     event.preventDefault();
@@ -33,6 +38,12 @@ const Login = () => {
     const message = checkValidData(email.current.value, password.current.value);
     setErrorMessage(message);
     if (message) return;
+    if(!isSignInForm){
+      if (password.current.value !== confirmPassword.current.value) {
+        setErrorMessage("Password does not match");
+        return;
+      }
+     }
     if (!isSignInForm) {
       createUserWithEmailAndPassword(
         auth,
@@ -134,6 +145,7 @@ const Login = () => {
           <label className="flex relative">
             <input
               required
+              ref={confirmPassword}
               type="password"
               placeholder="Confirm Password"
               className="my-4 p-4 w-full bg-gray-700"
