@@ -146,15 +146,15 @@ const Login = () => {
             <input
               required
               ref={confirmPassword}
-              type="password"
+              type={showConfirmPassword ? "text" : "password"}
               placeholder="Confirm Password"
               className="my-4 p-4 w-full bg-gray-700"
             />
             <span
               className="absolute right-3 top-[34px] cursor-pointer"
-              onClick={showPasswordHandler}
+              onClick={showConfirmPasswordHandler}
             >
-              {showPassword ? (
+              {showConfirmPassword ? (
                 <AiOutlineEye fontSize={24} fill="#AFB2BF" />
               ) : (
                 <AiOutlineEyeInvisible fontSize={24} fill="#AFB2BF" />
