@@ -7,9 +7,9 @@ import { addUser, removeUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { LOGO, SUPPORTED_LANGUAGES, USER_ICON } from "../utils/constants";
-import { clearGptMovieResult, toggleGptSearchView } from "../utils/gptSlice";
+import { clearGptMovieResult, setGptSearchView, toggleGptSearchView } from "../utils/gptSlice";
 import { changeLanguage } from "../utils/configSlice";
-import { setIsDescription, toggleIsDescription } from "../utils/moviesSlice";
+import { setIsDescription} from "../utils/moviesSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -67,7 +67,8 @@ const Header = () => {
         alt="Netflix-Logo"
         onClick={() => {
           navigate("/browse");
-          dispatch(toggleIsDescription());
+          dispatch(setIsDescription());
+          dispatch(setGptSearchView());
         }}
       ></img>
       {user && (

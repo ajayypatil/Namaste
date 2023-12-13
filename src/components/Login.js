@@ -22,6 +22,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const signInHandler = () => {
+    setErrorMessage(null);
     setIsSignInForm(!isSignInForm);
   };
 
