@@ -119,7 +119,7 @@ const Login = () => {
           required
           ref={email}
           type="email"
-          placeholder="Email or phone number"
+          placeholder="Email"
           className="my-4 p-4 w-full bg-gray-700"
         />
 
